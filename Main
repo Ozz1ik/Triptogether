@@ -1,0 +1,80 @@
+package com.example.triptogether
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.triptogether.ui.theme.TripTogetherTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            TripTogetherTheme {
+                // Основной экран приложения
+                TripScreen()
+            }
+        }
+    }
+}
+
+@Composable
+fun TripScreen() {
+    var trips by remember { mutableStateOf(listOf("Поездка в Париж", "Отпуск в Тайланд")) }
+    var newTripName by remember { mutableStateOf(TextFieldValue()) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text("Мои поездки", style = MaterialTheme.typography.h4)
+        
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Поле для добавления новой поездки
+        Row {
+            BasicTextField(
+                value = newTripName,
+                onValueChange = { newTripName = it },
+                modifier = Modifier.weight(1f).padding(8.dp)
+            )
+            Button(
+                onClick = {
+                    if (newTripName.text.isNotEmpty()) {
+                        trips = trips + newTripName.text
+                        newTripName = TextFieldValue()  // Очистить поле
+                    }
+                }
+            ) {
+                Text("Добавить")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Список поездок
+        LazyColumn {
+            items(trips.size) { index ->
+                Text(trips[index], style = MaterialTheme.typography.body1)
+                Divider()
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    TripTogetherTheme {
+        TripScreen()
+    }
+}
