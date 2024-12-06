@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Triptogether</string>
+    <string name="app_title">Triptogether</string>
+    destination 01
+    <string name="place_1">Бали </string>
+    <string name="plan">7 дней / 2 человека</string>
+    <string name="description">Super saver pack with less than $10000</string>
+
+
+    destination 02
+    <string name="place_2">Париж </string>
+    <string name="title_activity_bali">BaliActivity</string>
+
+
+    destination 03
+    <string name="place_3">Сингапур </string>
+    <string name="title_activity_paris">ParisActivity</string>
+    <string name="title_activity_singapore">SingaporeActivity</string>
+</resources>
